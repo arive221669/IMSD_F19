@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CapsuleMovement : MonoBehaviour
 {
-    public float speed;
+     float speed = 15;
 
     void Update()
     {
