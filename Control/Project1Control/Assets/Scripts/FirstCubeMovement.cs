@@ -23,15 +23,16 @@ public class FirstCubeMovement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
-        transform.position = new Vector3(Mathf.Tan(Time.time) * 3, Mathf.Sin(Time.time) * 7, Mathf.Cos(Time.time) * 3) + positionOffset;
-
+        if (HowManyCubesAreLeft >= 1)
+        {
+            transform.position = new Vector3(Mathf.Tan(Time.time) * 3, Mathf.Sin(Time.time) * 7, Mathf.Cos(Time.time) * 3) + positionOffset;
+        }
 
         if (HowManyCubesAreLeft == 0)
         {
 
             SpawnRubixCube();
-            HowManyCubesAreLeft = 1;
+            HowManyCubesAreLeft = -1;
 
         }
     }
@@ -43,6 +44,14 @@ public class FirstCubeMovement : MonoBehaviour {
         Debug.Log("Clicked");
         HowManyCubesAreLeft = HowManyCubesAreLeft - 1;
         Debug.Log("There are " + HowManyCubesAreLeft + " cubes left");
+
+        if (HowManyCubesAreLeft == 0)
+        {
+
+            SpawnRubixCube();
+            HowManyCubesAreLeft = 1;
+
+        }
 
     }
 
