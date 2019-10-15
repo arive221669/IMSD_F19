@@ -6,27 +6,28 @@ public class Moving : MonoBehaviour
 {
 
     public GameObject Cubes;
+    public GameObject SecondSound;
 
     private GameObject[,] cubes;
     private Vector3[,] positionOffsets;
 
-    AudioSource m_MyAudioSource;
+    AudioSource myAudioSource;
 
 
     // Use this for initialization
     void Start()
     {
 
-        m_MyAudioSource = GetComponent<AudioSource>();
+        myAudioSource = GetComponent<AudioSource>();
 
-        cubes = new GameObject[5, 5];
-        positionOffsets = new Vector3[5, 5];
+        cubes = new GameObject[3, 3];
+        positionOffsets = new Vector3[3, 3];
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 3; i++)
         {
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < 3; j++)
             {
-                cubes[i, j] = Instantiate(Cubes, new Vector3(2 * i - 5, 2 * j - 5, 0), Quaternion.identity);
+                cubes[i, j] = Instantiate(Cubes, new Vector3(2 * i - 2, 2 * j - 2, 0), Quaternion.identity);
                 positionOffsets[i, j] = cubes[i, j].transform.position;
             }
         }
@@ -37,17 +38,26 @@ public class Moving : MonoBehaviour
     void Update()
     {
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 3; i++)
         {
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < 3; j++)
             {
                 cubes[i, j].transform.position = new Vector3(cubes[i, j].transform.position.x, Mathf.Sin(Time.time) + positionOffsets[i, j].y, 0);
             }
         }
 
-        if (Input.GetKey("a"))
+        if (Input.GetKey(KeyCode.A))
         {
-            m_MyAudioSource.Play();
+            myAudioSource = gameObject.GetComponent<AudioSource>();
+            myAudioSource.Play();
+
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+
+            myAudioSource = SecondSound.gameObject.GetComponent<AudioSource>();
+            myAudioSource.Play();
 
         }
 
